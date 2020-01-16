@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<language_definitions>
+    <language processor="Dwarf"
+        endian="little"
+        size="64"
+        variant="default"
+        version="1.0"
+        slafile="Dwarf.sla"
+        processorspec="Dwarf.pspec"
+        id="Dwarf:LE:64:default">
+        <description>Dwarf 64-bits little-endian</description>
+        <compiler name="default" spec="Dwarf.cspec" id="default"/>
+    </language>
+</language_definitions>

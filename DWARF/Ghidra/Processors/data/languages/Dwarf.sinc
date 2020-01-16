@@ -1,0 +1,2502 @@
+
+define endian=little;
+
+define space ram type=ram_space size=8 default; 
+define space register type=register_space size=8; 
+
+
+# all registers are defined in _Unwind_Context.reg unwind-dw2.c
+# r31 <=> to SP registers in host machine 
+# to clarify a deditacted sp register is used to point the DWARF' stack. 
+define register offset=0 size=8 [ r0 r1 r2 r3 r4 r5 r6 r7 r8 r9 r10 r11 r12 r13 r14 r15 r16 r17 r18 r19 r20 r21 r22 r23 r24 r25 r26 r27 r28 r29 r30 r31 sp pc ];
+
+define token insn ( 8 )
+	opcode = ( 0,7 ); 
+
+# to be chained for regb 
+define token regn ( 8 ) 
+	reg = ( 0,7 ) 
+; 
+
+
+
+
+
+define token op1B ( 8 )
+	op_1B = ( 0,7 )
+;
+
+define token op1Bs ( 8 )
+	op_1Bs = ( 0,7 ) signed
+;
+
+define token op2B ( 16 )
+	op_2B = ( 0,15 )
+;
+
+
+define token op2Bs ( 16 )
+	op_2Bs = ( 0,15 ) signed 
+;
+
+define token op3B ( 24 )
+	op_3B = ( 0,23 )
+;
+
+define token op4B ( 32 )
+	op_4B = ( 0,31 )
+;
+
+define token op4Bs ( 32 )
+	op_4Bs = ( 0,31 ) signed
+;
+
+define token op5B ( 40 )
+	op_5B = ( 0,39 )
+;
+
+define token op6B ( 48 )
+	op_6B = ( 0,47 )
+;
+
+define token op7B ( 56 )
+	op_7B = ( 0,55 )
+;
+
+define token op8B ( 64 )
+	op_8B = ( 0,63 )
+;
+
+define token op8Bs ( 64 )
+	op_8Bs = ( 0,63 ) signed
+;
+
+define token uleb8(8)
+	all8=(0,7)
+	ul8=(0,6)
+	ulc8=(7,7);
+
+define token uleb16 ( 16 )
+	all16=(0,15)
+	ul816=( 0,6 )
+	ulc816=( 7,7 ) 	
+	ul16=(8,14) 
+	ulc16 = (15,15 );
+
+define token uleb24 (24)
+	all24=(0,23) 
+	ul824 = ( 0,6 )
+	ulc824 = ( 7,7) 	
+	ul1624 =  ( 8,14 ) 
+	ulc1624 = ( 15,15 ) 
+	ul24 = ( 16,22 ) 
+	ulc24 = ( 23,23 ) 
+;
+
+define token uleb32 (32)
+	all32=(0,31)
+	ul832 = ( 0,6 )
+	ulc832 = ( 7,7 ) 	
+	ul1632 =  ( 8,14 ) 
+	ulc1632 = ( 15,15 ) 
+	ul2432 = ( 16,22 ) 
+	ulc2432 = ( 23,23 ) 
+	ul32 = ( 24,30)
+	ulc32 = ( 31,31) 
+;
+
+define token uleb40 (40)
+	all40=(0,39)
+	ul840 = ( 0,6 )
+	ulc840 = ( 7,7 ) 	
+	ul1640 =  ( 8,14 ) 
+	ulc1640 = ( 15,15 ) 
+	ul2440 = ( 16,22 ) 
+	ulc2440 = ( 23,23 ) 
+	ul3240 = ( 24,30)
+	ulc3240 = ( 31,31) 
+	ul40 = ( 32,38 ) 
+	ulc40 = ( 39,39 ) 
+;
+
+define token uleb48 (48)
+	all48=(0,47)
+	ul848 = ( 0,6 )
+	ulc848 = ( 7,7 ) 	
+	ul1648 =  ( 8,14 ) 
+	ulc1648 = ( 15,15 ) 
+	ul2448 = ( 16,22 ) 
+	ulc2448 = ( 23,23 ) 
+	ul3248 = ( 24,30)
+	ulc3248 = ( 31,31) 
+	ul4048 = ( 32,38 ) 
+	ulc4048 = ( 39,39 ) 
+	ul48 = ( 40,46)
+	ulc48 =  (47,47) 
+;
+
+define token uleb56 (56)
+	all56=(0,55)
+	ul856 = ( 0,6 )
+	ulc856 = ( 7,7 ) 	
+	ul1656 =  ( 8,14 ) 
+	ulc1656 = ( 15,15 ) 
+	ul2456 = ( 16,22 ) 
+	ulc2456 = ( 23,24 ) 
+	ul3256 = ( 24,30)
+	ulc3256 = ( 31,31) 
+	ul4056 = ( 32,38 ) 
+	ulc4056 = ( 39,39 ) 
+	ul4856 = ( 40,46)
+	ulc4856 =  (47,47) 
+	ul56 = ( 48,54 )
+	ulc56 = ( 55,55 ) 
+;
+
+define token uleb64 (64)
+	all64=(0,63) 
+	ul864 = ( 0,6 )
+	ulc864 = ( 7,7 ) 	
+	ul1664 =  ( 8,14 ) 
+	ulc1664 = ( 15,15 ) 
+	ul2464 = ( 16,22 ) 
+	ulc2464 = ( 23,23 ) 
+	ul3264 = ( 24,30)
+	ulc3264 = ( 31,31) 
+	ul4064 = ( 32,38 ) 
+	ulc4064 = ( 39,39 ) 
+	ul4864 = ( 40,46)
+	ulc4864 =  (47,47) 
+	ul5664 = ( 48,54 )
+	ulc5664 = ( 55,55 ) 
+	ul64 = ( 56,62 ) 
+	ulc64 = ( 63,63 ) 
+;
+
+
+
+
+#TODO Extends to have continus 8Bytes value on the stack
+macro push(value){
+	sp=sp-8;
+	*[ram]:8 sp = value; #zext(value);
+}
+
+macro pop(retval){
+	ptr:8 = sp; 
+	retval = *:8 ptr;
+	sp = sp+8; 
+}
+
+#
+#macro uleb128(inval,retval){
+#	
+#	shift = 0 ; 	
+#	tmp=inval; 
+#	retval=inval;
+#	if (inval) & 0x80 == 0 goto <exit>;
+#	retval = 0; 
+#	<start>
+#	tmp=inval&0xFF;
+#	retval = retval | ((tmp & 0x7F) << shift); 
+#	shift = shift + 7;
+#	inval = inval >> 8;
+#	if ( tmp & 0x80 == 1) goto <start>; 
+#<exit>
+#	
+#}
+
+
+
+
+
+addr: "#"^op_8B is op_8B { export *[const]:8 op_8B; } # here requires const addr space because operand will be used for operations such LIT
+Imm8: "#"^op_1B is op_1B  { export *[const]:1 op_1B; }
+Imm8s: "#"^op_1Bs is op_1Bs { export *[const]:1 op_1Bs; }
+Imm16: "#"^op_2B is op_2B { export *[const]:2 op_2B; } 
+Imm16s: "#"^op_2Bs is op_2Bs { export *[const]:2 op_2Bs; } 
+Imm32: "#"^op_4B is op_4B { export *[const]:4 op_4B; } 
+Imm32s: "#"^op_4Bs is op_4Bs { export *[const]:4 op_4Bs; } 
+Imm64: "#"^op_8B is op_8B { export *[const]:8 op_8B; }
+Imm64s: "#"^op_8Bs is op_8Bs { export *[const]:8 op_8Bs; }
+
+
+
+
+
+ulb8: "#"^all8 is all8 & ul8 & ulc8=0 {  
+	push(ul8:1); 
+	export *[const]:1 all8; # when ulb8 is referenced form from another table, ulb8 will have the value of all8 
+													# const is not required here since all8 is only used for print purposes.
+} 
+ulb16: "#"^all16 is all16 & ul16 & ul816 & ulc16=0 & ulc816=1 { 
+	local tmp:2=(ul16<<7)|ul816;
+	push(tmp);
+	export *[const]:2 all16; 
+} 
+ulb24: "#"^all24 is all24 & ul24 & ul1624 & ul824 & ulc24=0 & ulc1624=1 & ulc824=1 { 
+	local tmp:3=(ul24<<14)|(ul1624<<7)|(ul824);
+	push(tmp);
+	export *[const]:3 all24 ; 
+}
+ulb32: "#"^all32 is all32 & ul32 & ul2432 & ul1632 & ul832 & ulc32=0 & ulc2432=1 & ulc1632=1 & ulc832=1 {  
+	local tmp:4=(ul32<<21)|(ul2432<<14)|(ul1632<<7)|(ul832);
+	push(tmp);
+	export *[const]:4 all32;  	
+}
+ulb40: "#"^all40 is all40 & ul40 & ul3240 & ul2440 & ul1640 & ul840 & ulc40=0 & ulc3240=1 & ulc2440=1 & ulc1640=1 & ulc840=1 {
+	local tmp:5 = (ul40<<28)|(ul3240<<21)|(ul2440<<14)|(ul1640<<7)|ul840; 
+	push(tmp); 
+	export *[const]:5 all40;  
+}
+ulb48: "#"^all48 is all48 & ul48 & ul4048 & ul3248  & ul2448 & ul1648 & ul848 & ulc48=0 & ulc4048=1 & ulc3248=1 & ulc2448=1 & ulc1648=1 & ulc848=1 { 
+	local tmp:6= (ul48<<35)|(ul4048<<28)|(ul3248<<21)|(ul2448<<14)|(ul1648<<7)|ul848; 
+	push(tmp); 
+	export *[const]:6 all48; 
+}
+ulb56: "#"^all56 is all56 & ul56 & ul4856  & ul4056 & ul3256 & ul2456 & ul1656 & ul856 &  ulc56=0 &  ulc4856=1 & ulc4056=1 & ulc3256=1 & ulc1656=1 & ulc856=1 & ulc2456=1  
+{ 
+	local tmp:7=(ul56<<41)|(ul4856<<35)|(ul4056<<27)|(ul3256<<21)|(ul2456<<14)|(ul1656<<7)|ul856;
+	push(tmp); 
+	export *[const]:7 all56;
+}
+ulb64: "#"^all64 is all64 & ul64 & ul5664 & ul4864 & ul4064 & ul3264 & ul2464 & ul1664 & ul864 &  ulc64=0 & ulc5664=1 & ulc4864=1 & ulc4064=1 & ulc3264=1 & ulc2464=1 & ulc1664=1 & ulc864=1 { 
+	local tmp:8=  (ul64<<48)|(ul5664<<41)|(ul4864<<35)|(ul4064<<27)|(ul3264<<21)|(ul2464<<14)|(ul1664<<7)|ul864;
+	push(tmp); 
+	export *[const]:8 all64;
+}
+
+slb8: "#"^all8 is all8 & ul8 & ulc8=0 {  
+	local sign:1 = ul8 & 0x40;
+	local tmp:1= ul8; 
+	if (sign) == 0 goto <ex>;
+	tmp = ul8 | (~0 << 7) ; 
+ <ex>
+	push(tmp); 
+	export *[const]:1 all8; # when ulb8 is referenced form from another table, ulb8 will have the value of all8 
+} 
+slb16: ""^all16 is all16 & ul16 & ul816 & ulc16=0 & ulc816=1 { 
+	local tmp:2=(ul16<<7)|ul816;
+	local sign:1 = ul16 & 0x40; 
+	if (sign) == 0 goto <ex>;
+	tmp = tmp | ( ~0 << 14 ) ; 
+	<ex>
+	push(tmp);
+	export *[const]:2 all16; 
+} 
+slb24: ""^all24 is all24 & ul24 & ul1624 & ul824 & ulc24=0 & ulc1624=1 & ulc824=1 { 
+	local tmp:3=(ul24<<14)|(ul1624<<7)|(ul824);
+	local sign:1 = ul24 & 0x40; 
+	if (sign) == 0 goto <ex>;
+	tmp = tmp | ( ~0 << 21 ) ; 
+	<ex>
+	push(tmp);
+	export *[const]:3 all24 ; 
+}
+slb32: "#"^all32 is all32 & ul32 & ul2432 & ul1632 & ul832 & ulc32=0 & ulc2432=1 & ulc1632=1 & ulc832=1 {  
+	local tmp:4=(ul32<<21)|(ul2432<<14)|(ul1632<<7)|(ul832);
+	local sign:1 = ul32 & 0x40; 
+	if (sign) == 0 goto <ex>;
+	tmp = tmp | ( ~0 << 28 ) ; 
+	<ex>
+	push(tmp);
+	export *[const]:4 all32;  	
+}
+slb40: "#"^all40 is all40 & ul40 & ul3240 & ul2440 & ul1640 & ul840 & ulc40=0 & ulc3240=1 & ulc2440=1 & ulc1640=1 & ulc840=1 {
+	local tmp:5 = (ul40<<28)|(ul3240<<21)|(ul2440<<14)|(ul1640<<7)|ul840; 
+	local sign:1 = ul40 & 0x40; 
+	if (sign) == 0 goto <ex>;
+	tmp = tmp | ( ~0 << 35 ) ; 
+	<ex>
+	push(tmp); 
+	export *[const]:5 all40;  
+}
+slb48: "#"^all48 is all48 & ul48 & ul4048 & ul3248  & ul2448 & ul1648 & ul848 & ulc48=0 & ulc4048=1 & ulc3248=1 & ulc2448=1 & ulc1648=1 & ulc848=1 { 
+	local tmp:6= (ul48<<35)|(ul4048<<28)|(ul3248<<21)|(ul2448<<14)|(ul1648<<7)|ul848; 
+	local sign:1 = ul48 & 0x40; 
+	if (sign) == 0 goto <ex>;
+	tmp = tmp | ( ~0 << 42 ) ; 
+	<ex>
+	push(tmp); 
+	export *[const]:6 all48; 
+}
+slb56: "#"^all56 is all56 & ul56 & ul4856  & ul4056 & ul3256 & ul2456 & ul1656 & ul856 &  ulc56=0 &  ulc4856=1 & ulc4056=1 & ulc3256=1 & ulc1656=1 & ulc856=1 & ulc2456=1  
+{ 
+	local tmp:7=(ul56<<41)|(ul4856<<35)|(ul4056<<27)|(ul3256<<21)|(ul2456<<14)|(ul1656<<7)|ul856;
+	local sign:1 = ul56 & 0x40; 
+	if (sign) == 0 goto <ex>;
+	tmp = tmp | ( ~0 << 49 ) ; 
+	<ex>
+	push(tmp); 
+	export *[const]:7 all56;
+}
+slb64: "#"^all64 is all64 & ul64 & ul5664 & ul4864 & ul4064 & ul3264 & ul2464 & ul1664 & ul864 &  ulc64=0 & ulc5664=1 & ulc4864=1 & ulc4064=1 & ulc3264=1 & ulc2464=1 & ulc1664=1 & ulc864=1 { 
+	local tmp:8=  (ul64<<48)|(ul5664<<41)|(ul4864<<35)|(ul4064<<27)|(ul3264<<21)|(ul2464<<14)|(ul1664<<7)|ul864;
+	local sign:1 = ul64 & 0x40; 
+	if (sign) == 0 goto <ex>;
+	tmp = tmp | ( ~0 << 46 ) ; 
+	<ex>
+	push(tmp); 
+	export *[const]:8 all64;
+}
+
+
+
+
+
+#########
+# INSN
+########
+
+
+:ADDR addr is opcode = 0x3 ; addr { push(addr); }
+
+:DEREF is opcode = 0x6  { 
+	local adr:8 ; 
+	pop(adr); 	
+	push( *[ram]:8 adr); 
+} 
+
+
+:LIT1  Imm8 is opcode = 0x8 ; Imm8 { push(Imm8); } 
+
+:LIT1s Imm8s is opcode = 0x9 ; Imm8s { push(Imm8s); } 
+
+:LIT2 Imm16 is opcode = 0xA ; Imm16 { push(Imm16); } 
+
+:LIT2s Imm16s is opcode = 0xB ; Imm16s { push(Imm16s); } 
+
+:LIT4 Imm32 is opcode = 0xC ; Imm32 { push(Imm32); } 
+
+:LIT4s Imm32s is opcode = 0xD ; Imm32s { push(Imm32s); } 
+
+:LIT8 Imm64 is opcode = 0xE ; Imm64 { push(Imm64); } 
+
+:LIT8 Imm64s is opcode = 0xF ; Imm64s { push(Imm64s); } 
+
+:LITu128 ulb8 is opcode = 0x10 ; ulb8 {  } 
+
+:LITu128 ulb16 is opcode = 0x10 ;  ulb16 { } 
+ 
+:LITu128 ulb24 is opcode = 0x10 ; ulb24 {  } 
+
+:LITu128 ulb32 is opcode = 0x10 ; ulb32 {  } 
+
+:LITu128 ulb40 is opcode = 0x10 ;  ulb40 {  } 
+
+:LITu128 ulb48 is opcode = 0x10 ;  ulb48 {  } 
+
+:LITu128 ulb56 is opcode = 0x10 ;  ulb56 {  } 
+
+:LITu128 ulb64 is opcode = 0x10 ;   ulb64 {  } 
+
+:LITs128 slb8 is opcode = 0x11 ; slb8 { } 
+
+:LITs128 slb16 is opcode = 0x11 ; slb16 { } 
+
+:LITs128 slb24 is opcode = 0x11 ; slb24 { } 
+
+:LITs128 slb32 is opcode = 0x11 ; slb32 { } 
+
+:LITs128 slb40 is opcode = 0x11 ; slb40 { } 
+
+:LITs128 slb48 is opcode = 0x11 ; slb48 { } 
+
+:LITs128 slb56 is opcode = 0x11 ; slb56 { } 
+
+:LITs128 slb64 is opcode = 0x11 ; slb64 { } 
+
+:DUP is opcode = 0x12 { local tmp:8 = 0;  pop(tmp) ; push(tmp); push(tmp); } 
+
+:DROP is opcode = 0x13 { local tmp:8 = 0; pop(tmp); } 
+
+:OVER is opcode = 0x14 { local first:8 = 0; local second:8 = 0; pop(first); pop(second); push(second); push(first); push(second); } 
+
+:PICK Imm8 is opcode = 0x15; Imm8 {  
+	local dec = Imm8 * 8; 
+	local offset:8 = sp + zext(dec); 
+	local tmp:8 = *:8 offset; 
+	push(tmp); 
+}
+
+:SWAP is opcode = 0x16 { local first:8 = 0; local second:8 = 0; pop(first); pop(second); push(first); push(second); } 
+
+:ROT is opcode = 0x17 { 
+	local first:8 = 0;
+  local second:8 = 0;
+  local third:8 = 0; 
+	pop(first); 
+	pop(second);
+	pop(third); 
+	push(second); 
+	push(first);
+	push(third); 
+}	
+
+:XDEREF is opcode = 0x18 {
+	local der:8 = 0; 
+	pop(der); 
+	local tmp:8 = *[ram]:8 der;
+	push(tmp); 
+}
+
+#TODO: test replace by "define pcodeop abs;" to see how decompiler handles it. 
+:ABS is opcode = 0x19 {
+	#Imm64 need to be considered as signed 
+
+	local tmp:8 = 0; 
+	pop(tmp); 
+
+	local sign_1:1= tmp[7,1]; 
+	local sign_2:1= tmp[15,1]; 
+	local sign_3:1= tmp[23,1]; 
+	local sign_4:1= tmp[31,1]; 
+	local sign_5:1= tmp[39,1]; 
+	local sign_6:1= tmp[47,1]; 
+	local sign_7:1= tmp[55,1]; 
+	local sign_8:1= tmp[63,1];
+	
+	local byte_1:1= tmp[0,8]; 
+	local byte_2:1= tmp[8,8]; 
+	local byte_3:1= tmp[16,8]; 
+	local byte_4:1= tmp[24,8]; 
+	local byte_5:1= tmp[32,8]; 
+	local byte_6:1= tmp[40,8]; 
+	local byte_7:1= tmp[48,8]; 
+	local byte_8:1= tmp[56,8]; 
+
+
+	if (sign_1 == 0) & (byte_1 != 0) & (byte_2 == 0) & (byte_3 == 0) & (byte_4 == 0) & (byte_5 == 0) & (byte_6 == 0) & (byte_7 ==0) & (byte_8 == 0) goto <exit>; 
+	if (sign_2 == 0) & (byte_2 != 0) & (byte_3 == 0) & (byte_4 == 0) & (byte_5 == 0) & (byte_6 == 0) & (byte_7 ==0) & (byte_8 == 0) goto <exit>; 
+	if (sign_3 == 0) & (byte_3 != 0) & (byte_4 == 0) & (byte_5 == 0) & (byte_6 == 0) & (byte_7 ==0) & (byte_8 == 0) goto <exit>; 
+	if (sign_4 == 0) & (byte_4 != 0) & (byte_5 == 0) & (byte_6 == 0) & (byte_7 ==0) & (byte_8 == 0) goto <exit>; 
+	if (sign_5 == 0) & (byte_5 != 0) & (byte_6 == 0) & (byte_7 ==0) & (byte_8 == 0) goto <exit>; 
+	if (sign_6 == 0) & (byte_6 != 0) & (byte_7 ==0) & (byte_8 == 0) goto <exit>; 
+	if (sign_7 == 0) & (byte_7 !=0) & (byte_8 == 0) goto <exit>; 
+	if (sign_8 == 0) & (byte_8 != 0) goto <exit>; 
+	
+	tmp = -tmp;
+<exit>
+	push(tmp);  
+}
+
+:AND is opcode = 0x1A { 
+	local first:8=0 ;
+	local second:8= 0; 
+	pop(first); 
+	pop(second); 
+	local tmp:8 = 0;
+	tmp =  first & second; 
+	push(tmp); 
+}
+
+:DIV is opcode = 0x1B {
+	local dividend:8;
+	local divisor:8;
+
+	pop(divisor); 
+	pop(dividend); 
+	
+	local tmp:8 = dividend s/ divisor; #signed division 
+	push(tmp); 
+}
+
+
+:MINUS is opcode = 0x1C {
+		
+	local first:8 = 0 ; 
+	local second:8 = 0 ; 
+
+	pop(first); 
+	pop(second); 
+
+	local tmp:8 = second - first; 
+	push(tmp); 
+}
+
+:MOD is opcode = 0x1D {
+
+	local remainder:8 = 0 ; 
+	local mod:8 = 0;
+	local num:8 = 0;  	
+
+	pop(mod); 
+	pop(num); 
+
+	remainder = mod / num ; 
+	remainder = num - (remainder * mod); 
+
+	push(remainder); 
+
+}
+
+:MUL is opcode = 0x1E {
+
+	local t1:8 = 0;	
+	local t2:8 = 0; 
+	local tmp:8 = 0; 
+
+	tmp = t1*t2; # no overflow detection 
+	push(tmp); 
+}
+
+:NEG is opcode = 0x1F {
+	
+	local out:8 = 0 ; 
+	pop(out); 
+	out=-out; 
+	push(out); 
+
+}
+
+:NOT is opcode = 0x20 {
+
+	local out:8 = 0 ; 
+	pop(out); 
+	out=~out; 
+	push(out); 
+}
+
+
+:OR is opcode = 0x21 {
+
+	local out:8 = 0 ; 
+	pop(out); 
+	out= out | out; 
+	push(out); 
+}
+
+:ADD is opcode = 0x22{
+
+	local t1:8 = 0; 
+	local t2:8 = 0; 
+	local out:8 = 0 ; 
+	pop(t1); 
+	pop(t2); 
+	out=t1+t2;
+	push(out); 
+
+}
+
+:ADD_uleb ulb8 is opcode = 0x23; ulb8 {
+
+	#here we cheat a little bit, the uleb is pushed by ulb8 table's action 
+	local uleb:8 = 0 ; 
+	local tmp:8 = 0 ; 
+	local out:8 = 0 ; 
+		
+	pop(uleb);
+	pop(tmp); 
+	pop(out); 
+
+	out= uleb + tmp; 
+	push(out); 
+}
+
+:SHL is opcode = 0x24 {
+
+	local dec:8 = 0; 
+	local num:8=0; 
+	local out:8=0; 
+
+	pop(dec);
+	pop(num); 
+	
+	out = num << dec; 
+	push(out); 
+}
+
+:SHR is opcode = 0x25 {
+	
+	local dec:8 = 0; 
+	local num:8=0; 
+	local out:8=0; 
+
+	pop(dec);
+	pop(num); 
+
+	out = num >>  dec; 
+	push(out); 
+
+}
+
+#Here we just copy SHR semantic and go the slaspec to mov INT_RIGH to mov INT_SRIGHT 
+:SHRA is opcode = 0x26{
+	
+	local dec:8 = 0; 
+	local num:8=0; 
+	local out:8=0; 
+
+	pop(dec);
+	pop(num); 
+
+	out = num >>  dec; 
+	push(out); 
+
+}
+
+:XOR is opcode = 0x27 {
+	
+	local t1:8 = 0; 
+	local t2:8 = 0;
+	local out:8 = 0;
+	
+	pop(t1);
+	pop(t2); 
+	
+	out = t1 ^t2 ; 
+	push(out); 
+}
+
+
+
+:SKIP Imm16s is opcode = 0x2f; Imm16s{
+	local dest:8= inst_next+sext(Imm16s); 
+	goto [dest]; # [] indique un branchement dans le meme espace d'@age 
+}
+
+:BRA Imm16s is opcode = 0x28; Imm16s {
+	local tmp:8 = 0; 
+	pop(tmp); 
+	local dest:8= inst_next+sext(Imm16s); 
+	if tmp == 0 goto inst_next; 
+	goto [dest] ; 
+}
+
+:EQ is opcode = 0x29 {
+	local l:8 = 0 ;
+	local r:8 = 0 ;
+	local out:8 = 0; 
+
+	pop(l);
+	pop(r);
+		
+	if (l!=r) goto <ex>;
+	out=1; 
+	<ex>
+	push(out); 
+}
+
+:GE is opcode = 0x2A{
+	local l:8 = 0 ;
+	local r:8 = 0 ;
+	local out:8 = 0; 
+
+	pop(l);
+	pop(r);
+	
+	if (l<r) goto <ex>;
+	out=1; 
+	<ex>
+	push(out); 
+}
+
+:GT is opcode = 0x2B{
+	local l:8 = 0 ;
+	local r:8 = 0 ;
+	local out:8 = 0; 
+
+	pop(l);
+	pop(r);
+	
+	if (l<=r) goto <ex>;
+	out=1; 
+	<ex>
+	push(out); 
+}
+
+:LE is opcode = 0x2C{
+	local l:8 = 0 ;
+	local r:8 = 0 ;
+	local out:8 = 0; 
+
+	pop(l);
+	pop(r);
+	
+	if (l>r) goto <ex>;
+	out=1; 
+	<ex>
+	push(out); 
+}
+
+:LT is opcode =  0x2D{
+	local l:8 = 0 ;
+	local r:8 = 0 ;
+	local out:8 = 0; 
+
+	pop(l);
+	pop(r);
+	
+	if (l<=r) goto <ex>;
+	out=1; 
+	<ex>
+	push(out); 
+}
+
+:NE is opcode =  0x2E{
+	local l:8 = 0 ;
+	local r:8 = 0 ;
+	local out:8 = 0; 
+
+	pop(l);
+	pop(r);
+	
+	if (l==r) goto <ex>;
+	out=1; 
+	<ex>
+	push(out); 
+}
+
+
+:LIT0 is opcode = 0x30 { local out:8 = 0; push (out);  }
+:LIT1 is opcode = 0x31 { local out:8 = 1; push (out);  }
+:LIT2 is opcode = 0x32 { local out:8 = 2; push (out);  }
+:LIT3 is opcode = 0x33 { local out:8 = 3; push (out);  }
+:LIT4 is opcode = 0x34 { local out:8 = 4; push (out);  }
+:LIT5 is opcode = 0x35 { local out:8 = 5; push (out);  }
+:LIT6 is opcode = 0x36 { local out:8 = 6; push (out);  }
+:LIT7 is opcode = 0x37 { local out:8 = 7; push (out);  }
+:LIT8 is opcode = 0x38 { local out:8 = 8; push (out);  }
+:LIT9 is opcode = 0x39 { local out:8 = 9; push (out);  }
+:LIT10 is opcode = 0x3a { local out:8 = 10; push (out);  }
+:LIT11 is opcode = 0x3b { local out:8 = 11; push (out);  }
+:LIT12 is opcode = 0x3c { local out:8 = 12; push (out);  }
+:LIT13 is opcode = 0x3d { local out:8 = 13; push (out);  }
+:LIT14 is opcode = 0x3e { local out:8 = 14; push (out);  }
+:LIT15 is opcode = 0x3f { local out:8 = 15; push (out);  }
+:LIT16 is opcode = 0x40 { local out:8 = 16; push (out);  }
+:LIT17 is opcode = 0x41 { local out:8 = 17; push (out);  }
+:LIT18 is opcode = 0x42 { local out:8 = 18; push (out);  }
+:LIT19 is opcode = 0x43 { local out:8 = 19; push (out);  }
+:LIT20 is opcode = 0x44 { local out:8 = 20; push (out);  }
+:LIT21 is opcode = 0x45 { local out:8 = 21; push (out);  }
+:LIT22 is opcode = 0x46 { local out:8 = 22; push (out);  }
+:LIT23 is opcode = 0x47 { local out:8 = 23; push (out);  }
+:LIT24 is opcode = 0x48 { local out:8 = 24; push (out);  }
+:LIT25 is opcode = 0x49 { local out:8 = 25; push (out);  }
+:LIT26 is opcode = 0x4a { local out:8 = 26; push (out);  }
+:LIT27 is opcode = 0x4b { local out:8 = 27; push (out);  }
+:LIT28 is opcode = 0x4c { local out:8 = 28; push (out);  }
+:LIT29 is opcode = 0x4d { local out:8 = 29; push (out);  }
+:LIT30 is opcode = 0x4e { local out:8 = 30; push (out);  }
+:LIT31 is opcode = 0x4f { local out:8 = 31; push (out);  }
+
+
+:REG0 is opcode = 0x50 { local out:8 = r0 ; push (out);  }
+:REG1 is opcode = 0x51 { local out:8 = r1; push (out);  }
+:REG2 is opcode = 0x52 { local out:8 = r2; push (out);  }
+:REG3 is opcode = 0x53 { local out:8 = r3; push (out);  }
+:REG4 is opcode = 0x54 { local out:8 = r4; push (out);  }
+:REG5 is opcode = 0x55 { local out:8 = r5; push (out);  }
+:REG6 is opcode = 0x56 { local out:8 = r6; push (out);  }
+:REG7 is opcode = 0x57 { local out:8 = r7; push (out);  }
+:REG8 is opcode = 0x58 { local out:8 = r8; push (out);  }
+:REG9 is opcode = 0x59 { local out:8 = r9; push (out);  }
+:REG10 is opcode = 0x5a { local out:8 = r10; push (out);  }
+:REG11 is opcode = 0x5b { local out:8 = r11; push (out);  }
+:REG12 is opcode = 0x5c { local out:8 = r12; push (out);  }
+:REG13 is opcode = 0x5d { local out:8 = r13; push (out);  }
+:REG14 is opcode = 0x5e { local out:8 = r14; push (out);  }
+:REG15 is opcode = 0x5f { local out:8 = r15; push (out);  }
+:REG16 is opcode = 0x60 { local out:8 = r16; push (out);  }
+:REG17 is opcode = 0x61 { local out:8 = r17; push (out);  }
+:REG18 is opcode = 0x62 { local out:8 = r18; push (out);  }
+:REG19 is opcode = 0x63 { local out:8 = r19; push (out);  }
+:REG20 is opcode = 0x64 { local out:8 = r20; push (out);  }
+:REG21 is opcode = 0x65 { local out:8 = r21; push (out);  }
+:REG22 is opcode = 0x66 { local out:8 = r22; push (out);  }
+:REG23 is opcode = 0x67 { local out:8 = r23; push (out);  }
+:REG24 is opcode = 0x68 { local out:8 = r24; push (out);  }
+:REG25 is opcode = 0x69 { local out:8 = r25; push (out);  }
+:REG26 is opcode = 0x6a { local out:8 = r26; push (out);  }
+:REG27 is opcode = 0x6b { local out:8 = r27; push (out);  }
+:REG28 is opcode = 0x6c { local out:8 = r28; push (out);  }
+:REG29 is opcode = 0x6d { local out:8 = r29; push (out);  }
+:REG30 is opcode = 0x6e { local out:8 = r30; push (out);  }
+:REG31 is opcode = 0x6f { local out:8 = r31; push (out);  }
+
+:BREG0 slb8 is opcode = 0x70; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r0 +sleb;
+   push(out);  
+ } 
+:BREG0 slb16 is opcode = 0x70; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r0 +sleb;
+   push(out);  
+ } 
+:BREG0 slb24 is opcode = 0x70; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r0 +sleb;
+   push(out);  
+ } 
+:BREG0 slb32 is opcode = 0x70; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r0 +sleb;
+   push(out);  
+ } 
+:BREG0 slb48 is opcode = 0x70; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r0 +sleb;
+   push(out);  
+ } 
+:BREG0 slb56 is opcode = 0x70; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r0 +sleb;
+   push(out);  
+ } 
+:BREG0 slb64 is opcode = 0x70; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r0 +sleb;
+   push(out);  
+ } 
+
+:BREG1 slb8 is opcode = 0x71; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r1 +sleb;
+   push(out);  
+ } 
+:BREG1 slb16 is opcode = 0x71; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r1 +sleb;
+   push(out);  
+ } 
+:BREG1 slb24 is opcode = 0x71; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r1 +sleb;
+   push(out);  
+ } 
+:BREG1 slb32 is opcode = 0x71; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r1 +sleb;
+   push(out);  
+ } 
+:BREG1 slb48 is opcode = 0x71; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r1 +sleb;
+   push(out);  
+ } 
+:BREG1 slb56 is opcode = 0x71; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r1 +sleb;
+   push(out);  
+ } 
+:BREG1 slb64 is opcode = 0x71; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r1 +sleb;
+   push(out);  
+ } 
+
+:BREG2 slb8 is opcode = 0x72; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r2 +sleb;
+   push(out);  
+ } 
+:BREG2 slb16 is opcode = 0x72; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r2 +sleb;
+   push(out);  
+ } 
+:BREG2 slb24 is opcode = 0x72; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r2 +sleb;
+   push(out);  
+ } 
+:BREG2 slb32 is opcode = 0x72; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r2 +sleb;
+   push(out);  
+ } 
+:BREG2 slb48 is opcode = 0x72; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r2 +sleb;
+   push(out);  
+ } 
+:BREG2 slb56 is opcode = 0x72; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r2 +sleb;
+   push(out);  
+ } 
+:BREG2 slb64 is opcode = 0x72; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r2 +sleb;
+   push(out);  
+ } 
+
+:BREG3 slb8 is opcode = 0x73; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r3 +sleb;
+   push(out);  
+ } 
+:BREG3 slb16 is opcode = 0x73; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r3 +sleb;
+   push(out);  
+ } 
+:BREG3 slb24 is opcode = 0x73; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r3 +sleb;
+   push(out);  
+ } 
+:BREG3 slb32 is opcode = 0x73; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r3 +sleb;
+   push(out);  
+ } 
+:BREG3 slb48 is opcode = 0x73; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r3 +sleb;
+   push(out);  
+ } 
+:BREG3 slb56 is opcode = 0x73; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r3 +sleb;
+   push(out);  
+ } 
+:BREG3 slb64 is opcode = 0x73; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r3 +sleb;
+   push(out);  
+ } 
+
+:BREG4 slb8 is opcode = 0x74; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r4 +sleb;
+   push(out);  
+ } 
+:BREG4 slb16 is opcode = 0x74; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r4 +sleb;
+   push(out);  
+ } 
+:BREG4 slb24 is opcode = 0x74; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r4 +sleb;
+   push(out);  
+ } 
+:BREG4 slb32 is opcode = 0x74; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r4 +sleb;
+   push(out);  
+ } 
+:BREG4 slb48 is opcode = 0x74; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r4 +sleb;
+   push(out);  
+ } 
+:BREG4 slb56 is opcode = 0x74; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r4 +sleb;
+   push(out);  
+ } 
+:BREG4 slb64 is opcode = 0x74; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r4 +sleb;
+   push(out);  
+ } 
+
+:BREG5 slb8 is opcode = 0x75; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r5 +sleb;
+   push(out);  
+ } 
+:BREG5 slb16 is opcode = 0x75; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r5 +sleb;
+   push(out);  
+ } 
+:BREG5 slb24 is opcode = 0x75; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r5 +sleb;
+   push(out);  
+ } 
+:BREG5 slb32 is opcode = 0x75; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r5 +sleb;
+   push(out);  
+ } 
+:BREG5 slb48 is opcode = 0x75; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r5 +sleb;
+   push(out);  
+ } 
+:BREG5 slb56 is opcode = 0x75; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r5 +sleb;
+   push(out);  
+ } 
+:BREG5 slb64 is opcode = 0x75; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r5 +sleb;
+   push(out);  
+ } 
+
+:BREG6 slb8 is opcode = 0x76; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r6 +sleb;
+   push(out);  
+ } 
+:BREG6 slb16 is opcode = 0x76; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r6 +sleb;
+   push(out);  
+ } 
+:BREG6 slb24 is opcode = 0x76; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r6 +sleb;
+   push(out);  
+ } 
+:BREG6 slb32 is opcode = 0x76; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r6 +sleb;
+   push(out);  
+ } 
+:BREG6 slb48 is opcode = 0x76; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r6 +sleb;
+   push(out);  
+ } 
+:BREG6 slb56 is opcode = 0x76; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r6 +sleb;
+   push(out);  
+ } 
+:BREG6 slb64 is opcode = 0x76; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r6 +sleb;
+   push(out);  
+ } 
+
+:BREG7 slb8 is opcode = 0x77; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r7 +sleb;
+   push(out);  
+ } 
+:BREG7 slb16 is opcode = 0x77; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r7 +sleb;
+   push(out);  
+ } 
+:BREG7 slb24 is opcode = 0x77; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r7 +sleb;
+   push(out);  
+ } 
+:BREG7 slb32 is opcode = 0x77; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r7 +sleb;
+   push(out);  
+ } 
+:BREG7 slb48 is opcode = 0x77; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r7 +sleb;
+   push(out);  
+ } 
+:BREG7 slb56 is opcode = 0x77; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r7 +sleb;
+   push(out);  
+ } 
+:BREG7 slb64 is opcode = 0x77; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r7 +sleb;
+   push(out);  
+ } 
+
+:BREG8 slb8 is opcode = 0x78; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r8 +sleb;
+   push(out);  
+ } 
+:BREG8 slb16 is opcode = 0x78; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r8 +sleb;
+   push(out);  
+ } 
+:BREG8 slb24 is opcode = 0x78; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r8 +sleb;
+   push(out);  
+ } 
+:BREG8 slb32 is opcode = 0x78; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r8 +sleb;
+   push(out);  
+ } 
+:BREG8 slb48 is opcode = 0x78; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r8 +sleb;
+   push(out);  
+ } 
+:BREG8 slb56 is opcode = 0x78; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r8 +sleb;
+   push(out);  
+ } 
+:BREG8 slb64 is opcode = 0x78; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r8 +sleb;
+   push(out);  
+ } 
+
+:BREG9 slb8 is opcode = 0x79; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r9 +sleb;
+   push(out);  
+ } 
+:BREG9 slb16 is opcode = 0x79; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r9 +sleb;
+   push(out);  
+ } 
+:BREG9 slb24 is opcode = 0x79; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r9 +sleb;
+   push(out);  
+ } 
+:BREG9 slb32 is opcode = 0x79; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r9 +sleb;
+   push(out);  
+ } 
+:BREG9 slb48 is opcode = 0x79; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r9 +sleb;
+   push(out);  
+ } 
+:BREG9 slb56 is opcode = 0x79; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r9 +sleb;
+   push(out);  
+ } 
+:BREG9 slb64 is opcode = 0x79; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r9 +sleb;
+   push(out);  
+ } 
+
+:BREG10 slb8 is opcode = 0x7a; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r10 +sleb;
+   push(out);  
+ } 
+:BREG10 slb16 is opcode = 0x7a; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r10 +sleb;
+   push(out);  
+ } 
+:BREG10 slb24 is opcode = 0x7a; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r10 +sleb;
+   push(out);  
+ } 
+:BREG10 slb32 is opcode = 0x7a; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r10 +sleb;
+   push(out);  
+ } 
+:BREG10 slb48 is opcode = 0x7a; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r10 +sleb;
+   push(out);  
+ } 
+:BREG10 slb56 is opcode = 0x7a; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r10 +sleb;
+   push(out);  
+ } 
+:BREG10 slb64 is opcode = 0x7a; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r10 +sleb;
+   push(out);  
+ } 
+
+:BREG11 slb8 is opcode = 0x7b; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r11 +sleb;
+   push(out);  
+ } 
+:BREG11 slb16 is opcode = 0x7b; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r11 +sleb;
+   push(out);  
+ } 
+:BREG11 slb24 is opcode = 0x7b; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r11 +sleb;
+   push(out);  
+ } 
+:BREG11 slb32 is opcode = 0x7b; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r11 +sleb;
+   push(out);  
+ } 
+:BREG11 slb48 is opcode = 0x7b; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r11 +sleb;
+   push(out);  
+ } 
+:BREG11 slb56 is opcode = 0x7b; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r11 +sleb;
+   push(out);  
+ } 
+:BREG11 slb64 is opcode = 0x7b; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r11 +sleb;
+   push(out);  
+ } 
+
+:BREG12 slb8 is opcode = 0x7c; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r12 +sleb;
+   push(out);  
+ } 
+:BREG12 slb16 is opcode = 0x7c; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r12 +sleb;
+   push(out);  
+ } 
+:BREG12 slb24 is opcode = 0x7c; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r12 +sleb;
+   push(out);  
+ } 
+:BREG12 slb32 is opcode = 0x7c; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r12 +sleb;
+   push(out);  
+ } 
+:BREG12 slb48 is opcode = 0x7c; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r12 +sleb;
+   push(out);  
+ } 
+:BREG12 slb56 is opcode = 0x7c; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r12 +sleb;
+   push(out);  
+ } 
+:BREG12 slb64 is opcode = 0x7c; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r12 +sleb;
+   push(out);  
+ } 
+
+:BREG13 slb8 is opcode = 0x7d; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r13 +sleb;
+   push(out);  
+ } 
+:BREG13 slb16 is opcode = 0x7d; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r13 +sleb;
+   push(out);  
+ } 
+:BREG13 slb24 is opcode = 0x7d; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r13 +sleb;
+   push(out);  
+ } 
+:BREG13 slb32 is opcode = 0x7d; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r13 +sleb;
+   push(out);  
+ } 
+:BREG13 slb48 is opcode = 0x7d; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r13 +sleb;
+   push(out);  
+ } 
+:BREG13 slb56 is opcode = 0x7d; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r13 +sleb;
+   push(out);  
+ } 
+:BREG13 slb64 is opcode = 0x7d; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r13 +sleb;
+   push(out);  
+ } 
+
+:BREG14 slb8 is opcode = 0x7e; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r14 +sleb;
+   push(out);  
+ } 
+:BREG14 slb16 is opcode = 0x7e; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r14 +sleb;
+   push(out);  
+ } 
+:BREG14 slb24 is opcode = 0x7e; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r14 +sleb;
+   push(out);  
+ } 
+:BREG14 slb32 is opcode = 0x7e; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r14 +sleb;
+   push(out);  
+ } 
+:BREG14 slb48 is opcode = 0x7e; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r14 +sleb;
+   push(out);  
+ } 
+:BREG14 slb56 is opcode = 0x7e; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r14 +sleb;
+   push(out);  
+ } 
+:BREG14 slb64 is opcode = 0x7e; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r14 +sleb;
+   push(out);  
+ } 
+
+:BREG15 slb8 is opcode = 0x7f; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r15 +sleb;
+   push(out);  
+ } 
+:BREG15 slb16 is opcode = 0x7f; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r15 +sleb;
+   push(out);  
+ } 
+:BREG15 slb24 is opcode = 0x7f; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r15 +sleb;
+   push(out);  
+ } 
+:BREG15 slb32 is opcode = 0x7f; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r15 +sleb;
+   push(out);  
+ } 
+:BREG15 slb48 is opcode = 0x7f; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r15 +sleb;
+   push(out);  
+ } 
+:BREG15 slb56 is opcode = 0x7f; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r15 +sleb;
+   push(out);  
+ } 
+:BREG15 slb64 is opcode = 0x7f; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r15 +sleb;
+   push(out);  
+ } 
+
+:BREG16 slb8 is opcode = 0x80; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r16 +sleb;
+   push(out);  
+ } 
+:BREG16 slb16 is opcode = 0x80; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r16 +sleb;
+   push(out);  
+ } 
+:BREG16 slb24 is opcode = 0x80; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r16 +sleb;
+   push(out);  
+ } 
+:BREG16 slb32 is opcode = 0x80; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r16 +sleb;
+   push(out);  
+ } 
+:BREG16 slb48 is opcode = 0x80; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r16 +sleb;
+   push(out);  
+ } 
+:BREG16 slb56 is opcode = 0x80; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r16 +sleb;
+   push(out);  
+ } 
+:BREG16 slb64 is opcode = 0x80; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r16 +sleb;
+   push(out);  
+ } 
+
+:BREG17 slb8 is opcode = 0x81; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r17 +sleb;
+   push(out);  
+ } 
+:BREG17 slb16 is opcode = 0x81; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r17 +sleb;
+   push(out);  
+ } 
+:BREG17 slb24 is opcode = 0x81; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r17 +sleb;
+   push(out);  
+ } 
+:BREG17 slb32 is opcode = 0x81; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r17 +sleb;
+   push(out);  
+ } 
+:BREG17 slb48 is opcode = 0x81; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r17 +sleb;
+   push(out);  
+ } 
+:BREG17 slb56 is opcode = 0x81; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r17 +sleb;
+   push(out);  
+ } 
+:BREG17 slb64 is opcode = 0x81; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r17 +sleb;
+   push(out);  
+ } 
+
+:BREG18 slb8 is opcode = 0x82; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r18 +sleb;
+   push(out);  
+ } 
+:BREG18 slb16 is opcode = 0x82; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r18 +sleb;
+   push(out);  
+ } 
+:BREG18 slb24 is opcode = 0x82; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r18 +sleb;
+   push(out);  
+ } 
+:BREG18 slb32 is opcode = 0x82; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r18 +sleb;
+   push(out);  
+ } 
+:BREG18 slb48 is opcode = 0x82; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r18 +sleb;
+   push(out);  
+ } 
+:BREG18 slb56 is opcode = 0x82; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r18 +sleb;
+   push(out);  
+ } 
+:BREG18 slb64 is opcode = 0x82; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r18 +sleb;
+   push(out);  
+ } 
+
+:BREG19 slb8 is opcode = 0x83; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r19 +sleb;
+   push(out);  
+ } 
+:BREG19 slb16 is opcode = 0x83; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r19 +sleb;
+   push(out);  
+ } 
+:BREG19 slb24 is opcode = 0x83; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r19 +sleb;
+   push(out);  
+ } 
+:BREG19 slb32 is opcode = 0x83; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r19 +sleb;
+   push(out);  
+ } 
+:BREG19 slb48 is opcode = 0x83; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r19 +sleb;
+   push(out);  
+ } 
+:BREG19 slb56 is opcode = 0x83; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r19 +sleb;
+   push(out);  
+ } 
+:BREG19 slb64 is opcode = 0x83; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r19 +sleb;
+   push(out);  
+ } 
+
+:BREG20 slb8 is opcode = 0x84; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r20 +sleb;
+   push(out);  
+ } 
+:BREG20 slb16 is opcode = 0x84; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r20 +sleb;
+   push(out);  
+ } 
+:BREG20 slb24 is opcode = 0x84; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r20 +sleb;
+   push(out);  
+ } 
+:BREG20 slb32 is opcode = 0x84; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r20 +sleb;
+   push(out);  
+ } 
+:BREG20 slb48 is opcode = 0x84; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r20 +sleb;
+   push(out);  
+ } 
+:BREG20 slb56 is opcode = 0x84; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r20 +sleb;
+   push(out);  
+ } 
+:BREG20 slb64 is opcode = 0x84; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r20 +sleb;
+   push(out);  
+ } 
+
+:BREG21 slb8 is opcode = 0x85; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r21 +sleb;
+   push(out);  
+ } 
+:BREG21 slb16 is opcode = 0x85; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r21 +sleb;
+   push(out);  
+ } 
+:BREG21 slb24 is opcode = 0x85; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r21 +sleb;
+   push(out);  
+ } 
+:BREG21 slb32 is opcode = 0x85; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r21 +sleb;
+   push(out);  
+ } 
+:BREG21 slb48 is opcode = 0x85; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r21 +sleb;
+   push(out);  
+ } 
+:BREG21 slb56 is opcode = 0x85; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r21 +sleb;
+   push(out);  
+ } 
+:BREG21 slb64 is opcode = 0x85; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r21 +sleb;
+   push(out);  
+ } 
+
+:BREG22 slb8 is opcode = 0x86; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r22 +sleb;
+   push(out);  
+ } 
+:BREG22 slb16 is opcode = 0x86; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r22 +sleb;
+   push(out);  
+ } 
+:BREG22 slb24 is opcode = 0x86; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r22 +sleb;
+   push(out);  
+ } 
+:BREG22 slb32 is opcode = 0x86; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r22 +sleb;
+   push(out);  
+ } 
+:BREG22 slb48 is opcode = 0x86; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r22 +sleb;
+   push(out);  
+ } 
+:BREG22 slb56 is opcode = 0x86; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r22 +sleb;
+   push(out);  
+ } 
+:BREG22 slb64 is opcode = 0x86; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r22 +sleb;
+   push(out);  
+ } 
+
+:BREG23 slb8 is opcode = 0x87; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r23 +sleb;
+   push(out);  
+ } 
+:BREG23 slb16 is opcode = 0x87; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r23 +sleb;
+   push(out);  
+ } 
+:BREG23 slb24 is opcode = 0x87; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r23 +sleb;
+   push(out);  
+ } 
+:BREG23 slb32 is opcode = 0x87; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r23 +sleb;
+   push(out);  
+ } 
+:BREG23 slb48 is opcode = 0x87; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r23 +sleb;
+   push(out);  
+ } 
+:BREG23 slb56 is opcode = 0x87; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r23 +sleb;
+   push(out);  
+ } 
+:BREG23 slb64 is opcode = 0x87; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r23 +sleb;
+   push(out);  
+ } 
+
+:BREG24 slb8 is opcode = 0x88; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r24 +sleb;
+   push(out);  
+ } 
+:BREG24 slb16 is opcode = 0x88; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r24 +sleb;
+   push(out);  
+ } 
+:BREG24 slb24 is opcode = 0x88; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r24 +sleb;
+   push(out);  
+ } 
+:BREG24 slb32 is opcode = 0x88; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r24 +sleb;
+   push(out);  
+ } 
+:BREG24 slb48 is opcode = 0x88; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r24 +sleb;
+   push(out);  
+ } 
+:BREG24 slb56 is opcode = 0x88; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r24 +sleb;
+   push(out);  
+ } 
+:BREG24 slb64 is opcode = 0x88; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r24 +sleb;
+   push(out);  
+ } 
+
+:BREG25 slb8 is opcode = 0x89; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r25 +sleb;
+   push(out);  
+ } 
+:BREG25 slb16 is opcode = 0x89; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r25 +sleb;
+   push(out);  
+ } 
+:BREG25 slb24 is opcode = 0x89; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r25 +sleb;
+   push(out);  
+ } 
+:BREG25 slb32 is opcode = 0x89; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r25 +sleb;
+   push(out);  
+ } 
+:BREG25 slb48 is opcode = 0x89; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r25 +sleb;
+   push(out);  
+ } 
+:BREG25 slb56 is opcode = 0x89; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r25 +sleb;
+   push(out);  
+ } 
+:BREG25 slb64 is opcode = 0x89; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r25 +sleb;
+   push(out);  
+ } 
+
+:BREG26 slb8 is opcode = 0x8a; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r26 +sleb;
+   push(out);  
+ } 
+:BREG26 slb16 is opcode = 0x8a; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r26 +sleb;
+   push(out);  
+ } 
+:BREG26 slb24 is opcode = 0x8a; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r26 +sleb;
+   push(out);  
+ } 
+:BREG26 slb32 is opcode = 0x8a; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r26 +sleb;
+   push(out);  
+ } 
+:BREG26 slb48 is opcode = 0x8a; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r26 +sleb;
+   push(out);  
+ } 
+:BREG26 slb56 is opcode = 0x8a; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r26 +sleb;
+   push(out);  
+ } 
+:BREG26 slb64 is opcode = 0x8a; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r26 +sleb;
+   push(out);  
+ } 
+
+:BREG27 slb8 is opcode = 0x8b; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r27 +sleb;
+   push(out);  
+ } 
+:BREG27 slb16 is opcode = 0x8b; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r27 +sleb;
+   push(out);  
+ } 
+:BREG27 slb24 is opcode = 0x8b; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r27 +sleb;
+   push(out);  
+ } 
+:BREG27 slb32 is opcode = 0x8b; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r27 +sleb;
+   push(out);  
+ } 
+:BREG27 slb48 is opcode = 0x8b; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r27 +sleb;
+   push(out);  
+ } 
+:BREG27 slb56 is opcode = 0x8b; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r27 +sleb;
+   push(out);  
+ } 
+:BREG27 slb64 is opcode = 0x8b; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r27 +sleb;
+   push(out);  
+ } 
+
+:BREG28 slb8 is opcode = 0x8c; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r28 +sleb;
+   push(out);  
+ } 
+:BREG28 slb16 is opcode = 0x8c; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r28 +sleb;
+   push(out);  
+ } 
+:BREG28 slb24 is opcode = 0x8c; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r28 +sleb;
+   push(out);  
+ } 
+:BREG28 slb32 is opcode = 0x8c; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r28 +sleb;
+   push(out);  
+ } 
+:BREG28 slb48 is opcode = 0x8c; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r28 +sleb;
+   push(out);  
+ } 
+:BREG28 slb56 is opcode = 0x8c; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r28 +sleb;
+   push(out);  
+ } 
+:BREG28 slb64 is opcode = 0x8c; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r28 +sleb;
+   push(out);  
+ } 
+
+:BREG29 slb8 is opcode = 0x8d; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r29 +sleb;
+   push(out);  
+ } 
+:BREG29 slb16 is opcode = 0x8d; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r29 +sleb;
+   push(out);  
+ } 
+:BREG29 slb24 is opcode = 0x8d; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r29 +sleb;
+   push(out);  
+ } 
+:BREG29 slb32 is opcode = 0x8d; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r29 +sleb;
+   push(out);  
+ } 
+:BREG29 slb48 is opcode = 0x8d; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r29 +sleb;
+   push(out);  
+ } 
+:BREG29 slb56 is opcode = 0x8d; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r29 +sleb;
+   push(out);  
+ } 
+:BREG29 slb64 is opcode = 0x8d; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r29 +sleb;
+   push(out);  
+ } 
+
+:BREG30 slb8 is opcode = 0x8e; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r30 +sleb;
+   push(out);  
+ } 
+:BREG30 slb16 is opcode = 0x8e; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r30 +sleb;
+   push(out);  
+ } 
+:BREG30 slb24 is opcode = 0x8e; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r30 +sleb;
+   push(out);  
+ } 
+:BREG30 slb32 is opcode = 0x8e; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r30 +sleb;
+   push(out);  
+ } 
+:BREG30 slb48 is opcode = 0x8e; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r30 +sleb;
+   push(out);  
+ } 
+:BREG30 slb56 is opcode = 0x8e; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r30 +sleb;
+   push(out);  
+ } 
+:BREG30 slb64 is opcode = 0x8e; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r30 +sleb;
+   push(out);  
+ } 
+
+:BREG31 slb8 is opcode = 0x8f; slb8 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r31 +sleb;
+   push(out);  
+ } 
+:BREG31 slb16 is opcode = 0x8f; slb16 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r31 +sleb;
+   push(out);  
+ } 
+:BREG31 slb24 is opcode = 0x8f; slb24 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r31 +sleb;
+   push(out);  
+ } 
+:BREG31 slb32 is opcode = 0x8f; slb32 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r31 +sleb;
+   push(out);  
+ } 
+:BREG31 slb48 is opcode = 0x8f; slb48 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r31 +sleb;
+   push(out);  
+ } 
+:BREG31 slb56 is opcode = 0x8f; slb56 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r31 +sleb;
+   push(out);  
+ } 
+:BREG31 slb64 is opcode = 0x8f; slb64 {
+   local sleb:8 = 0;
+   pop(sleb); 
+   local out:8 = r31 +sleb;
+   push(out);  
+ } 
+
+
+
+
+
+#Here no need to sleb stuff as register are encode in 32bit. 
+:REGX reg is opcode = 0x90; reg {
+	local out:8 = reg:8; 
+	push(out);
+}
+
+:FBREG slb8 is opcode = 0x91; slb8 {
+
+
+	local sleb:8 = 0;
+	pop(sleb); 
+	
+	local out:8 = r31 + sleb ; # we consider that r31 (SP) is eq. to DW_AT_frame_base; 
+	push(out); 
+}
+
+:FBREG slb16 is opcode = 0x91; slb16 {
+
+
+	local sleb:8 = 0;
+	pop(sleb); 
+	
+	local out:8 = r31 + sleb ; # we consider that r31 (SP) is eq. to DW_AT_frame_base; 
+	push(out); 
+}
+
+:FBREG slb24 is opcode = 0x91; slb24 {
+
+
+	local sleb:8 = 0;
+	pop(sleb); 
+	
+	local out:8 = r31 + sleb ; # we consider that r31 (SP) is eq. to DW_AT_frame_base; 
+	push(out); 
+}
+
+:FBREG slb32 is opcode = 0x91; slb32 {
+
+	local sleb:8 = 0;
+	pop(sleb); 
+	
+	local out:8 = r31 + sleb ; # we consider that r31 (SP) is eq. to DW_AT_frame_base; 
+	push(out); 
+}
+
+:FBREG slb40 is opcode = 0x91; slb40 {
+
+	local sleb:8 = 0;
+	pop(sleb); 
+	
+	local out:8 = r31 + sleb ; # we consider that r31 (SP) is eq. to DW_AT_frame_base; 
+	push(out); 
+}
+
+:FBREG slb48 is opcode = 0x91; slb48 {
+
+	local sleb:8 = 0;
+	pop(sleb); 
+	
+	local out:8 = r31 + sleb ; # we consider that r31 (SP) is eq. to DW_AT_frame_base; 
+	push(out); 
+}
+
+:FBREG slb56 is opcode = 0x91; slb56 {
+	local sleb:8 = 0;
+	pop(sleb); 
+	
+	local out:8 = r31 + sleb ; # we consider that r31 (SP) is eq. to DW_AT_frame_base; 
+	push(out); 
+}
+
+
+:FBREG slb64 is opcode = 0x91; slb64 {
+	local sleb:8 = 0;
+	pop(sleb); 
+	
+	local out:8 = r31 + sleb ; # we consider that r31 (SP) is eq. to DW_AT_frame_base; 
+	push(out); 
+}
+
+
+:BREGX reg"^"slb8 is opcode = 0x92 ; reg; slb8 { 
+
+	local sleb:8 = 0; 
+	pop(sleb); 
+
+	local out:8 = sleb+ reg:8 ; 
+	push(out); 
+}
+
+
+:BREGX reg"^"slb16 is opcode = 0x92 ; reg; slb16 { 
+
+	local sleb:8 = 0; 
+	pop(sleb); 
+
+	local out:8 = sleb+ reg:8 ; 
+	push(out); 
+}
+
+:BREGX reg"^"slb24 is opcode = 0x92 ; reg; slb24 { 
+
+	local sleb:8 = 0; 
+	pop(sleb); 
+
+	local out:8 = sleb+ reg:8 ; 
+	push(out); 
+}
+
+:BREGX reg"^"slb32 is opcode = 0x92 ; reg; slb32 { 
+
+	local sleb:8 = 0; 
+	pop(sleb); 
+
+	local out:8 = sleb+ reg:8 ; 
+	push(out); 
+}
+
+:BREGX reg"^"slb40 is opcode = 0x92 ; reg; slb40 { 
+
+	local sleb:8 = 0; 
+	pop(sleb); 
+
+	local out:8 = sleb+ reg:8 ; 
+	push(out); 
+}
+
+:BREGX reg"^"slb48 is opcode = 0x92 ; reg; slb48 { 
+
+	local sleb:8 = 0; 
+	pop(sleb); 
+
+	local out:8 = sleb+ reg:8 ; 
+	push(out); 
+}
+
+:BREGX reg"^"slb56 is opcode = 0x92 ; reg; slb56 { 
+
+	local sleb:8 = 0; 
+	pop(sleb); 
+
+	local out:8 = sleb+ reg:8 ; 
+	push(out); 
+}
+
+:BREGX reg"^"slb64 is opcode = 0x92 ; reg; slb64 { 
+
+	local sleb:8 = 0; 
+	pop(sleb); 
+
+	local out:8 = sleb+ reg:8 ; 
+	push(out); 
+}
+
+
+#mask is encoded on 1 Byte
+:PIECE Imm8 is opcode = 0x93 ;  Imm8 {
+	
+	local t1:1 = Imm8[0,1] ;
+	local t2:1 = Imm8[1,1] ;
+	local t3:1 = Imm8[2,1] ;
+#	local t4:1 = Imm8[3,1] ;
+
+	local out:8 = 0 ;
+	pop(out);  
+	if (t1 == 1) goto <un>;
+	<un>
+	out = zext(out[0,8]); 
+	goto <ex>;
+	if (t1 == 0) & (t2 == 1)   goto <deux>;
+	<deux>
+	out = zext(out[0,16]); 
+	goto <ex>;
+	if (t1 == 1) & (t2 ==1) goto <trois>;
+	<trois> 
+	out = zext(out[0,24]); 
+	goto <ex>;
+	if (t1 == 0) & (t2 ==0) & (t3 ==1) goto <quatre>;
+	<quatre> 
+	out = zext(out[0,32]); 
+	goto <ex>;
+	if (t1 == 1) & (t2 ==0) & (t3 ==1) goto <cinq>;
+	<cinq> 
+	out = zext(out[0,40]); 
+	goto <ex>;
+	if (t1 == 0) & (t2 ==1) & (t3 ==1) goto <six>;
+	<six> 
+	out = zext(out[0,40]); 
+	goto <ex>;
+	if (t1 == 1) & (t2 ==1) & (t3 ==1) goto <sept>;
+	<sept> 
+	out = zext(out[0,56]); 
+	goto <ex>;
+	
+	<ex>
+	push(out); 
+}
+
+
+define token xder ( 16 ) 
+	oc = (0,7)
+	sze = (8,15); 
+
+
+:DEREFSIZE size is oc = 0x94 & sze = 1 [ size = 1 ; ]  {
+
+	local adr:8 = 0; 
+	pop(adr); 
+	
+	local val:1 = *[ram]:1 adr;
+	push(val); 
+} 
+
+:DEREFSIZE size is oc = 0x94 & sze = 2  [ size = 2 ; ] {
+
+	local adr:8 = 0; 
+	pop(adr); 
+	
+	local val:2 = *[ram]:2 adr;
+	push(val); 
+}
+
+:DEREFSIZE size is oc = 0x94 & sze = 3 [ size = 3 ; ]  {
+
+	local adr:8 = 0; 
+	pop(adr); 
+	
+	local val:3 = *[ram]:3 adr;
+	push(val); 
+}
+:DEREFSIZE size is oc = 0x94 & sze = 4 [ size = 4 ;  ] {
+
+	local adr:8 = 0; 
+	pop(adr); 
+	
+	local val:4 = *[ram]:4 adr;
+	push(val); 
+}
+
+:DEREFSIZE size is oc = 0x94 & sze = 5 [ size = 5 ; ]   {
+
+	local adr:8 = 0; 
+	pop(adr); 
+	
+	local val:5 = *[ram]:5 adr;
+	push(val); 
+}
+
+:DEREFSIZE size is oc = 0x94 & sze = 6 [ size = 6 ; ]  {
+
+	local adr:8 = 0; 
+	pop(adr); 
+	
+	local val:6 = *[ram]:6 adr;
+	push(val); 
+}
+:DEREFSIZE size is oc = 0x94 & sze = 7 [ size = 7 ; ] {
+
+	local adr:8 = 0; 
+	pop(adr); 
+	
+	local val:7 = *[ram]:7 adr;
+	push(val); 
+}
+
+:DEREFSIZE 8 is oc = 0x94 & sze = 8 {
+
+	local adr:8 = 0; 
+	pop(adr); 
+	
+	local val:8 = *[ram]:8 adr;
+	push(val); 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+:NOP is opcode = 0x96 { }
+
+:LOUSR is opcode = 0xE0 { } #Reserved for vendor
+
+:HIUSR is opcode = 0xFF { } #Reserved for vendor
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
