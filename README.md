@@ -16,7 +16,7 @@ Ajouter support z3
 
 ##Bogues :
 
-Le processeur ne fonctionne pas sur la version >= 7.4 de IDA PRO, c'est en cours d'investigation -\_(-_+)_/- ...
+Le processeur ne fonctionne pas sur la version >= 7.4 de IDA PRO
 L'instruction LIT8 ne fonctionne pas correctement sur IDA PRO. 
 
 ## Rendus graphiques 
